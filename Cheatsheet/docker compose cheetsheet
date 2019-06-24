@@ -1,0 +1,83 @@
+docker-compose -f docker-compose-standalone.yml up -d ### to run the dockercompose file
+
+
+### to deploy the same image multiple times
+    deploy:
+      mode: replicated
+      replicas: 6
+
+### to add image 
+	image: redis
+	image: ubuntu:14.04
+	image: tutum/influxdb
+	image: example-registry.com:4000/postgresql
+	image: a4bc65fd
+
+### to add links
+	web:
+	  links:
+	   - db
+	   - db:database
+	   - redis
+
+### to add port 
+	ports:
+	 - "3000"
+	 - "3000-3005"
+	 - "8000:8000"
+	 - "9090-9091:8080-8081"
+	 - "49100:22"
+	 - "127.0.0.1:8001:8001"
+	 - "127.0.0.1:5000-5010:5000-5010"
+	 - "6060:6060/udp"
+
+###custom name for the volume
+version: "3.7"
+volumes:
+  data:
+    external: true
+    name: my-app-data
+
+### to pull images from dockerhub
+	redis:
+    image: "redis:alpine"
+
+### subsitute of variable 
+db:
+  image: "postgres:${POSTGRES_VERSION}"
+
+### sample 
+version: "3.7"
+services:
+  web:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - type: volume
+        source: mydata
+        target: /data
+        volume:
+          nocopy: true
+      - type: bind
+        source: ./static
+        target: /opt/app/static
+
+	networks:
+  		webnet:
+
+	volumes:
+ 		mydata:
+
+ ### sample 2
+version: "3.7"
+services:
+  db:
+    image: postgres:9.4
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - backend
+    deploy:
+      placement:
+        constraints: [node.role == manager]

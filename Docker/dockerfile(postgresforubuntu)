@@ -1,0 +1,34 @@
+FROM ubuntu
+
+MAINTAINER shrikkanth
+
+RUN apt-get -y update
+RUN apt-get -y install software-properties-common
+RUN apt-get -y install sudo
+RUN apt-get -y install wget
+
+RUN sudo apt-get -y install wget ca-certificates
+RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+
+RUN sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
+RUN sudo apt-get -y update
+RUN sudo apt-get -y install postgresql-9.6 postgresql-contrib-9.6 
+
+###ENV PGHOST localhost
+
+RUN sed -i "s|5433|5432|g" /etc/postgresql/9.6/main/postgresql.conf ### to replace the port number for postsql database to run
+RUN sed -i "s|# Add settings for extensions here|listen_addresses = '*' |g" /etc/postgresql/9.6/main/postgresql.conf ### to add all the ips to listen to the psql
+
+
+RUN echo "host	all		all		192.168.1.2/32		md5" >> /etc/postgresql/9.6/main/pg_hba.conf ### add the correct ip address of the instance or the local pc
+RUN echo "host	all		all		::/0				trust" >> /etc/postgresql/9.6/main/pg_hba.conf ### add this so that the ip address is trusted 
+
+EXPOSE 5432 ### to set the port to 5432
+RUN cd /
+RUN sudo /etc/init.d/postgresql restart ### so that the postgresql works
+
+###RUN psql -U postgres
+###RUN sudo su - postgres ### to login as postgres
+###RUN psql  ### to open the psql and type psql commands
+
+

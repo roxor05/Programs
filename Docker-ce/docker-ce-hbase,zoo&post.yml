@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+ hbase:
+  container_name: hbase_working
+  image: hbasejava12inubuntu:latest
+  stdin_open: true
+  tty: true
+ 
+ zookeeper:
+  container_name: zookeeper_working
+  image: zookeeperjava12inubuntu:latest
+  stdin_open: true
+  tty: true
+
+ postresql:
+  container_name: postresql_working
+  image: postgresinubuntu:latest
+  stdin_open: true
+  tty: true
+
+  
+    

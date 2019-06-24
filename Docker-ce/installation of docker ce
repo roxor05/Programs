@@ -1,0 +1,142 @@
+roxor@roxor-VirtualBox:~$ sudo apt-get update
+[sudo] password for roxor: 
+
+
+roxor@roxor-VirtualBox:~$ sudo apt-get install \
+>     apt-transport-https \
+>     ca-certificates \
+>     curl \
+>     gnupg-agent \
+>     software-properties-common
+
+roxor@roxor-VirtualBox:~$ sudo add-apt-repository \
+>    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+>    $(lsb_release -cs) \
+>    stable"
+
+
+roxor@roxor-VirtualBox:~$ apt-cache madison docker-ce
+ 
+
+roxor@roxor-VirtualBox:~$ sudo apt-get install docker-ce=<VERSION_STRING> docker-ce-cli=<VERSION_STRING> containerd.io
+
+roxor@roxor-VirtualBox:~$ sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+[sudo] password for roxor: 
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   617    0   617    0     0    502      0 --:--:--  0:00:01 --:--:--   502
+100 15.4M  100 15.4M    0     0   988k      0  0:00:15  0:00:15 --:--:-- 1023k
+
+roxor@roxor-VirtualBox:~$ sudo chmod +x /usr/local/bin/docker-compose
+
+roxor@roxor-VirtualBox:~$ docker-compose --version
+docker-compose version 1.24.0, build 0aa59064
+
+roxor@roxor-VirtualBox:~$ docker --version
+Docker version 18.09.6, build 481bc77
+
+roxor@roxor-VirtualBox:~$ sudo chmod +x /usr/local/bin/docker-compose
+ 
+roxor@roxor-VirtualBox:~$ docker-compose config
+ERROR: 
+        Can't find a suitable configuration file in this directory or any
+        parent. Are you in the right directory?
+
+        Supported filenames: docker-compose.yml, docker-compose.yaml
+        
+roxor@roxor-VirtualBox:~$ pwd
+/home/roxor
+
+roxor@roxor-VirtualBox:~$ cd
+
+roxor@roxor-VirtualBox:~$ cd desktop
+bash: cd: desktop: No such file or directory
+
+roxor@roxor-VirtualBox:~$ cd Desktop
+
+roxor@roxor-VirtualBox:~/Desktop$ pwd
+/home/roxor/Desktop
+
+roxor@roxor-VirtualBox:~/Desktop$ mkdir dockercomposef
+
+roxor@roxor-VirtualBox:~/Desktop$ cd dockercomposef/
+
+roxor@roxor-VirtualBox:~/Desktop/dockercomposef$ touch docker-compose.yml
+
+roxor@roxor-VirtualBox:~/Desktop/dockercomposef$ ls
+docker-compose.yml
+
+roxor@roxor-VirtualBox:~/Desktop/dockercomposef$ nano docker-compose.yml
+
+roxor@roxor-VirtualBox:~/Desktop/dockercomposef$ cat docker-compose.yml 
+services:
+web:
+image:nginx
+database:
+image:redis
+
+roxor@roxor-VirtualBox:~/Desktop/dockercomposef$ docker-compose config
+ERROR: yaml.scanner.ScannerError: while scanning a simple key
+  in "./docker-compose.yml", line 3, column 1
+could not find expected ':'
+  in "./docker-compose.yml", line 4, column 1
+
+roxor@roxor-VirtualBox:~/Desktop/dockercomposef$ docker-compose config
+ERROR: The Compose file './docker-compose.yml' is invalid because:
+Unsupported config option for services: 'database'
+
+roxor@roxor-VirtualBox:~/Desktop/dockercomposef$ docker version
+Client:
+ Version:           18.09.6
+ API version:       1.39
+ Go version:        go1.10.8
+ Git commit:        481bc77
+ Built:             Sat May  4 02:35:57 2019
+ OS/Arch:           linux/amd64
+ Experimental:      false
+Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get http://%2Fvar%2Frun%2Fdocker.sock/v1.39/version: dial unix /var/run/docker.sock: connect: permission denied
+roxor@roxor-VirtualBox:~/Desktop/dockercomposef$ docker-compose config
+ERROR: In file './docker-compose.yml', service 'web' must be a mapping not a string.
+
+roxor@roxor-VirtualBox:~/Desktop/dockercomposef$ docker-compose config
+services:
+  database:
+    image: redis
+  web:
+    image: nginx
+version: '3.7'
+
+roxor@roxor-VirtualBox:~/Desktop/dockercomposef$ sudo docker-compose up -d
+[sudo] password for roxor: 
+Creating network "dockercomposef_default" with the default driver
+Pulling web (nginx:)...
+latest: Pulling from library/nginx
+743f2d6c1f65: Pull complete
+6bfc4ec4420a: Pull complete
+688a776db95f: Pull complete
+Digest: sha256:1d0dfe527f801c596818da756e01fa0e7af4649b15edc3eb245e8da92c8381f8
+Status: Downloaded newer image for nginx:latest
+Pulling database (redis:)...
+latest: Pulling from library/redis
+743f2d6c1f65: Already exists
+171658c5966d: Pull complete
+fbef10bd7a65: Pull complete
+98afd60e45e4: Pull complete
+495c87fda859: Pull complete
+ed6767858416: Pull complete
+Digest: sha256:cac4e16f45aa3b315ec3ed9c2167ec8ad58fa717136fa6992c1062c384e18a36
+Status: Downloaded newer image for redis:latest
+Creating dockercomposef_web_1      ... done
+Creating dockercomposef_database_1 ... done
+
+roxor@roxor-VirtualBox:~/Desktop/dockercomposef$ sudo docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
+810fc6ac03d4        redis               "docker-entrypoint.s…"   22 seconds ago      Up 16 seconds       6379/tcp            dockercomposef_database_1
+9c55c1870919        nginx               "nginx -g 'daemon of…"   22 seconds ago      Up 17 seconds       80/tcp              dockercomposef_web_1
+roxor@roxor-VirtualBox:~/Desktop/dockercomposef$ sudo docker-compose down
+Stopping dockercomposef_database_1 ... done
+Stopping dockercomposef_web_1      ... done
+Removing dockercomposef_database_1 ... done
+Removing dockercomposef_web_1      ... done
+Removing network dockercomposef_default
+

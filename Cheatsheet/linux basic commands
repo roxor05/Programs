@@ -1,0 +1,1288 @@
+The basic command for linux loader to update in the master boot record
+
+/sbin/lilo -v
+
+---------------------------------------------------------------------------------------------------------------------------
+
+Letter abbrevations:
+
+	a --- shows hidden files
+	d --- directory entries only
+	F --- it shows if there is directories inside the directory we opened
+	g --- list files without owners
+	G --- list files without group
+	h --- human aberivations like when it's 4096 of size if we use h it comes as 4.0k
+	i --- shows the index number or inode number
+	l --- shows full details of the dir
+	m --- shows dir with commas
+	n --- To display UID and GID of files and directories
+	R --- lists all the dir and sub dirs
+	r --- list in reverse
+	s --- view files sizes
+	S --- sort according to the size
+	t --- recently been modified appearing first on the list
+	T --- system type of your system
+
+-------------------------------------------------------------------------------------------------------------------------
+
+RENAME COMMANDS:
+	
+	rename 's/\.type currently$/\.type to change/' *.select current all type --- renaming the type of file. 
+	rename -n 's/\.type$/\.html/' *.php --- printing the renaming the type of file but not changing it.
+	rename -v 's/\.php$/\.html/' *.php --- printing the renaming the type of file and changing it.
+	rename 'y/a-z/A-Z/' *.html --- changing all file name to uppercase or lowercase
+	rename 's/\b(\w)/\U$1/g' *.ext --- captializing the first word in the file
+	rename -f 's/a/b/' *.html --- Overwrite Existing Files
+
+-------------------------------------------------------------------------------------------------------------------------
+
+ECHO COMMANDS:
+
+	echo (input) --- what you type on the input comes as output
+	echo can store values if assigned to a variable(x=anyvalue,this is $x)
+	echo -e "text \b value" --- the blank space inbetween the \b and text gets erased
+	echo -e "text \nvalue" --- new line
+	echo -e "text \tvalue" --- tab spacing
+	echo -e "text \n\tvalue" --- tab spacing for all sentences at the start
+	echo -e "text \vtvalue" --- starting line is first then at the end of the line below the next line appears
+	echo -e "text \n\vtvalue" --- more spacing between each line
+	echo -e "text \rvalue" --- values that come after \r are printed
+	echo -e "text \cvalue" --- values that come before \c are printed
+	echo -n "text" --- prints the value in the text
+	echo -e "text \avalue" --- alert return 
+	echo * --- to print all the files and folders of the dir
+	echo *.txt --- to print all the txt files
+	echo "values" > filename --- saves all the values to the file
+
+
+	-n	--- do not print the trailing newline.
+	-e	--- enable interpretation of backslash escapes.
+	\b	--- backspace
+	\\	--- backslash
+	\n	--- new line
+	\r	--- carriage return
+	\t	--- horizontal tab
+	\v	--- vertical tab
+
+-------------------------------------------------------------------------------------------------------------------------
+
+LIST COMMANDS:
+
+	ls --- list of documents in the directory
+	ls -i --- with amount of space and no of files
+	ls -a --- all files with hidden files
+	ls -l ---shows file or directory, size, modified date and time, file or folder name and owner of file and its permission.
+	ls -lh --- shows sizes in human readable format for better readability of the space taken by the files
+	ls -F --- it shows if there is directories inside the directory we opened.
+	ls -r --- list of docs in reverse order
+	ls -R --- shows the files or sub folders inside the directory
+	ls -ltr--- shows sizes in human readable format	
+	ls -lS --- displays file size in order, will display big in size first.
+	ls -i --- With -i options list file / directory with inode number.
+	ls -p --- changes the color based on the type of file
+	ls --version --- to check the version.
+	ls --help --- help
+	ls -ld /tmp/ --- with -ld parameters displays information of /tmp directory.
+	ls -n --- To display UID and GID of files and directories.
+	alias ls="ls -l" --- to alias the command to a specific task like ls can e defaulted to ls -i.
+	unalias ls --- to unalias the ls 
+
+	other ls commands:
+		ls -l –time-style=[STYLE] 
+			replace [style] with:
+				full-iso
+				long-iso
+				iso
+				locale
+				+%H:%M:%S:%D
+		
+		ls-l --time-style=iso --- provides the list with date only
+		ls-l --time-style=long-iso --- provides the list with date and time 
+		ls-l --time-style=full-iso --- provides the list with date time sec and ms
+		ls-l --time-style=locale --- provides the month in words for readibility 
+		ls --full-time --- same as full iso
+
+		ls –-format=across --- displays all the dir and files across the terminal
+		ls –-format=comma --- displays all the dir and file with commas
+		ls –-format=horizontal
+		ls –-format=vertical
+		ls –-format=long --- the normal ls -l way
+		ls –-format=verbose
+		ls –-format=single-column --- in a single column
+
+		ls --sort=extension
+		ls --sort=size
+		ls --sort=time
+		ls --sort=version
+		ls --sort=none
+		
+		ls --width 80
+		ls --width 100
+		ls --width 150
+
+		ls --tabsize=[value] --- values from 1 to 7
+		ls -l | grep -v ^l | wc -l --- to get the count of the no of files
+
+-----------------------------------------------------------------------------------------------------------------------
+
+CD COMMANDS:(change directory)
+
+	cd / --- to go to the root folder
+	cd and cd~ --- to go to the home folder
+	cd .. --- to go to one lvl down in dir
+	cd - --- to go the previous dir
+	cd ../ ../ --- to move 2 dir before
+	cd ~/dir name && ls --- to go from current directory to the another directory
+
+-----------------------------------------------------------------------------------------------------------------------
+
+DIR COMMANDS:
+
+	dir / --- basically the same as ls
+	dir /etc/--- opens almost all the files in the folder
+	dir -1 ---open only one file per line
+	dir -a --- hidden files
+	dir -al --- hidden files with list
+	dir -d --- to list only directory entries
+	dir -dl --- same as above with list
+	dir -il --- index or inode number will be seen
+	dir -shl --- s is for the size, h is human readable and l is list
+	dir -ash1S --- all above with hidden files and sorted from largest size
+	dir -ashlt --- all above with sorting done by time modification
+	dir -ahgG --- List files without owner or group owner. G is used to select all non groups and g is used for all non owned
+	dir -al --author --- to find the author of the file 
+	dir -l --group-directories-first --- groups the dir in the dir first before the files
+	dir -R --- lists all the dir and sub dirs
+	dir -nl --author --- to view group ids
+	dir -m --- view dir with commas
+
+--------------------------------------------------------------------------------------------------------------------------
+
+TOUCH COMMANDS:
+	
+	touch (foldername) --- to create an empty file.
+	touch (foldername) (foldername) (foldername) --- to create multiple files.
+	touch -a (foldername) --- sets the current time and date on a file and also creates a new file. 
+	touch -c (foldername) --- avoids creating a new file but time is modified.
+	touch -m (foldername) --- change the only modification time of a file.
+	touch -c -t YYDDHHMM (foldername) --- explicitly set the time. 
+	touch -r (folder to cpy) (folder to paste)--- Use the time stamp of another File.
+	touch -t YYMMDDHHMM.SS (foldername) --- Create a File using a specified time.
+
+	-a, change the access time only
+	-c, if the file does not exist, do not create it
+	-d, update the access and modification times
+	-m, change the modification time only
+	-r, use the access and modification times of file
+	-t, creates a file using a specified time
+
+---------------------------------------------------------------------------------------------------------------------------
+
+HEAD COMMANDS:
+	head filename --- shows the first 10 lines of the file
+	head -n5 filename --- shows the first 5 lines as the -n respresents the no of lines to be seen
+	head -5 filename
+	head -c45 filename --- shows the data upto a certain byte from above
+
+---------------------------------------------------------------------------------------------------------------------------
+
+TAIL COMMANDS:
+	tail filename --- shows the last 10 lines
+	tail -n5 filename --- shows the last 5 lines as the -n respresents the no of lines to be seen
+	tail -5 filename
+	tail -c45 filename --- shows the data upto a certain byte from below
+
+---------------------------------------------------------------------------------------------------------------------------
+
+CAT COMMANDS:(concatenate)
+
+	cat /etc/passwd --- to show the content of the file
+	cat test test1 --- View Contents of Multiple Files in terminal itself
+	cat >test2 then type the content in the file and then ctrl+D --- to create file and add content
+	cat song.txt | more ---it is used to fit the output of the file
+	cat song.txt | less
+	cat -e filename --- displays the documents with $ at the end of a line in the file
+	cat -T filename --- displays ^ on every tab space used
+	cat test; cat test1; cat test2 --- displays multiple files at the same time
+	cat test > test1 --- copies from test and pastes to test1 and deletes the contents existing in the files
+	cat test >> test1 --- copies from test and pastes to test2 without deleting the contents in the files
+	cat < test2 --- same as the normal cat command
+	cat test test1 test2 > test3 --- copying all the data in the files and creating a new file and pasting it 
+	cat test test1 test2 test3 | sort > test4 --- copies all the data in the files and sorts all the data
+	cat<<++ write and again ++ to stop --- used as an echo command
+
+	cat > filename << end --- if we write in the file and type end it will stop
+	tac filename --- prints from the last line
+
+---------------------------------------------------------------------------------------------------------------------------
+
+DF COMMANDS:(disk file system) (to check the file system)
+
+	df -h --- to see disk space usage
+	df -a --- to see all the files including the hidden files
+	df -hT /home --- Display Information of /home File System
+	df -k --- displays the size in kb
+	df -m --- displays the size in mb
+	df -h --- displays the size in gb
+	df -i --- displays the no of inodes
+	df -T --- displays the file system type
+	df -t file name --- display certain file system type
+
+---------------------------------------------------------------------------------------------------------------------------
+
+PYDF COMMANDS:(python disk file system)
+	installing pydf:
+		sudo apt-get install pydf
+	pydf --- shows the disk usage
+	pydf -a --- shows all the disk usage
+	pydf -k,m,g,h --- shows in kb,mb,gb
+	pydf -i --- inode numbers	
+	pydf --bw --- to disable color output
+	vi /etc/pydfrc --- to edit the color
+
+---------------------------------------------------------------------------------------------------------------------------
+
+FREE COMMANDS:
+	
+	free - displays the free memory
+	free -b,k,m,g --- displays the memory in f=bytes,kb,mb,gb
+	free -t --- total line 
+	free -o --- to disable buffer in the free command
+	free -s 5 --- runs free command every 5 seconds
+	free -l --- displays detailed high and low memory size statistics.
+
+---------------------------------------------------------------------------------------------------------------------------
+
+DU COMMANDS:(disk usage)
+
+	du --- displays the usage of the dir and files of the directory you are currently in
+	du -h --- displays the disk usage in human readable
+	du -sh --- displays size 
+	du -a --- displays all the files
+	du -k,m,h --- displays in kb ,mb,gb
+	du -c --- displays the total below
+	du -ah --exclude="*.txt" foldername --- shows all the usage of the files except the excluded file type or file
+	du -ah --time --- shows all the files usage with the modification time
+
+---------------------------------------------------------------------------------------------------------------------------
+
+FIND COMMANDS:
+
+	find . -name filename --- finding the file followed by the dir and sub dir
+	find /home -name filename --- finding the file under the home dir as specified	 
+	find /home -iname filename --- finds the files named of both captial and small letters
+
+	find / -type d -name dirname --- finds all the directories types specified with the same name
+	find . -type f -name filename.type --- finds all the files types specified with the same name 
+	find . -type f -name "*type of file(.txt)" --- finds all the file types specified
+
+	find . -type f -perm 0777 -print --- finds the dir and file with 777 permissions. (print is not needed)
+	find / -type f ! -perm 777 --- finds the dir and file without 777 permissions(all,all,all)
+
+	find / -perm 2644 ---  finds special GID (SGID) files (read+write,read,read)
+	find / -perm 1551 --- finds Sticky Bit Files (r+e,r+e,e)
+
+	find / -perm /u=s --- find Special UID (SUID) files
+	find / -perm /g=s --- find special GID (SGID) files
+	find / -perm /u=r --- find all read only files
+	find / -perm /u=x --- find all read only files
+
+	find / -type f -perm 0777 -name filename -print -exec chmod 644 {} \; --- changes the permission of the file from 777 to 644 (we can change type to dir and file)(we can change the name of the file)(print is not needed though)
+
+	find . -type f -name "filename" -exec rm -f {} \; --- removes the file mentioned
+	find . -type f -name "*.txt" -exec rm -f {} \; --- removes all the files in .txt format
+	find /tmp -type f or d -empty --- finds empty files or dir
+	
+	find / -user (username) -name (filename) --- to find the files of the specified user
+	find /home -user (username) --- to find all the files of the user
+	find /home -group (groupname) --- to find all the files of the group
+	find /home -user (username) -name "*.txt" --- to find all the text files of the user
+
+	find / -mtime 50 --- to find the last 50 modified files
+	find / -atime 50 --- to find all the accessed files used last 50 days back 
+	find / -mtime +50 –mtime -100 --- to find all the accessed files used last 50 days - 100 days
+	find / -cmin -60 --- find the last 1 hr changed files(c- changed files)
+	find / -mmin -60 --- modified files of the last 1 hr (m- modified files)
+	find / -amin -60 --- accessed files of the last 1 hr (a- accessed files)
+
+	find / -size 50M --- finds all the files with more than 50MB size
+	find / -size +50M -size -100M --- finds all the files between 50MB to 100MB size
+	find / -size +100M -exec rm -rf {} \; --- finds all the files of 100MB size and above and deletes them
+	find / -type f -name *.mp3 -size +10M -exec rm {} \; --- finds the files of the extension and if the file size is 10MB above it deletes them 	
+
+	* --- to select all the letters after or before the name
+	i --- is used to ignore upper case or lower case
+
+---------------------------------------------------------------------------------------------------------------------------
+
+WC COMMANDS:(word count)
+
+	wc filename --- prints the no of lines ,words and size
+	wc -l : Prints the number of lines in a file.
+	wc -w : prints the number of words in a file.
+	wc -c : Displays the count of bytes in a file.
+	wc -m : prints the count of characters from a file.
+	wc -L : prints only the length of the longest line in a file.
+
+---------------------------------------------------------------------------------------------------------------------------
+
+SORT COMMANDS:
+	
+	Basic:
+
+		sort -M month.txt --- sorting of months
+		ls -l dir | sort -h -k5 --- sorting by size
+		sort -c file name --- checks if the file is sorted
+		sort -t '+' -nk1 filename --- print and sorts the files in correct order based on the first word or number in the line
+		ls -l dir | sort -k5 -R --- random sorting
+		export LC_ALL=C --- to override the default sorting preference
+		sort -f filename --- it helps in not caring the uppercase or lowercase
+		join <(sort -n file1.txt) <(sort file2.txt) --- joins 2 files where it takes the first number or character as the index
+
+	Advance:
+		
+		sort file.txt > sorted.txt --- to move the sorted file to another file so that the sorted data is saved 
+		sort -r file.txt > reversesorted.txt --- same as above but in reverse order
+		sort -u file.txt --- removes the duplicates in the file
+
+	Note:
+
+		-e in the command enables interpretion of backslash and /n tells echo to write each string to a new line.
+
+---------------------------------------------------------------------------------------------------------------------------
+
+GREP COMMANDS:(Global Regular Expression)(file pattern search)
+
+	to install grep:
+		sudo apt-get install grep         #Debian/Ubuntu
+		sudo yum install grep             #RHEL/CentOS/Fedora
+
+	dpkg -l | grep -i python --- dpkg checks the .deb files and grep checks and returns everything under python
+	grep –v “#”  (filename) --- it shows all the lines except the commented lines
+	
+	find . –name “*.format” | grep –i filename | grep –vi “filename continue” --- checks first for the file name and then again checks for the other name included
+
+	to install ifconfig:
+		sudo apt install net -tools
+
+	grep –A3 "word" filename --- finds all the lines above the words,the no 3 represents the no of lines to be printed
+	grep -B2 "word" filename --- finds all the lines after the words,the no 2 represents the no of lines to be printed
+	grep –c "word" filename --- prints the no of words
+	grep –w "word" filename --- prints only the line containing the word 
+
+	grep –n "word" filename --- prints and highlights the word asked
+	grep –r "word" * --- prints all the words in the directory and sub directory
+	grep –E "word" filename --- prints the line containing the word
+	grep 'word1\|word2\|word3' --- to grep multiple words
+	 grep -w 'SpotPrice\|Timestamp' --- to grep multiple words together
+
+	zgrep –i "word" filename --- displays all the lines which have the values
+
+	v-invert the output 
+
+---------------------------------------------------------------------------------------------------------------------------
+
+KILL COMMANDS:
+
+	ps --- (process) gives you the current running process with process number (PID)
+	ps -A --- gives all the current process
+	ps -A | grep -i ssh --- to find the PID number of the process we use grep
+	kill 1285 --- to kill the running process which is given and will start again when restarted
+	pkill apache2 --- to kill the running process which is given and wont start even after restarting
+	pidof mysqld --- to find the pid of the mysqld or anything
+	ps aux | grep mysqld --- same as the above
+		a = show processes for all users
+		u = display the process's user/owner
+		x = also show processes not attached to a terminal
+	pgrep mysq --- same as above
+	killall processname --- to kill all the process in it
+	service mysql status
+	pgrep mysql
+	ps -aux | grep mysql
+	
+---------------------------------------------------------------------------------------------------------------------------
+
+SERVICE COMMANDS:
+	
+	service apache2 start --- to start a service
+	service apache2 restart --- to restart a service
+	service apache2 stop --- to stop a service
+
+---------------------------------------------------------------------------------------------------------------------------
+
+PWD commands:(print working directory)
+	
+	/bin/pwd --- absolute path of pwd binary file
+	/usr/include/pwd.h ---absolute path of the pwd source file
+	/usr/share/man/man1/pwd.1.gz --- absolute path of the pwd manual pages file
+
+	pwd -L: Prints the symbolic path.
+	pwd -P: Prints the actual path
+	type -a pwd --- Print all the locations containing executable named pwd
+
+	To create symbolic link: 	
+	ln -s (source folder) (destination folder)
+	cd destination folder
+
+	Store the value of “pwd” command in variable a and print its value from the variable:
+	a=$(pwd)
+	echo "Current working directory is : $a"
+
+	Change current working directory to anything and display it in command line. Execute a ls to verify is everything is OK
+	PS1= '  (ps1 is like command prompt where we can write scripts)
+	$PWD
+	$ 123#Hello#!
+	$ '
+
+	Set multi-line command line prompt 
+	PS1='
+	> $PWD
+	$ 123#Hello#!
+	$ '
+	/home
+	123#Hello#!
+
+	Check the current working directory and previous working directory in one GO:
+	echo “$PWD $OLDPWD”
+
+
+	mkdir tecmint
+	cd tecmint
+	nano pwd.sh
+
+	inside nano pwd.sh we write:
+	#!/bin/bash
+	x="$(pwd)"
+	if [ "$x" == "/home/$USER/tecmint" ]
+	then
+	     {
+	      echo "Well you are in tecmint directory"
+	      echo "Good Bye"
+	     }
+	else
+	     {
+	      mkdir /home/$USER/tecmint
+	      echo "Created Directory tecmint you may now cd to it"
+	     }
+	fi
+	exit the file then type to 
+
+	chmod 755 pwd.sh (Change mode) (755 is the accesss number)
+	./pwd.sh
+
+--------------------------------------------------------------------------------------------------------------------------
+
+IFCONFIG COMMANDS:
+	
+	ifconfig --- to see the network interfaces
+	ifconfig -a --- to see all the network interfaces
+	ifconfig 'name of the interface' down --- to disable the interface
+	ifconfig 'name of the interface' up --- to enable the interface
+	ifconfig 'name of the interface' ip address --- to assign an ip address for the interface
+	ifconfig 'name of the interface' netmask ip address --- to assign subnet for the interface
+	ifconfig 'name of the interface' broadcast ip address --- to broadcast subnet for the interface
+	ifconfig eth0 192.168.1.12 netmask 255.255.255.0 broadcast 192.168.1.255 --- all the three above
+
+--------------------------------------------------------------------------------------------------------------------------
+
+NETSTAT COMMANDS:
+
+	netstat -a --- to view all network ports
+	netstat -at --- to view all TCP ports
+	netstat -s --- to view all statics network ports
+	netstat -an --- if you want not to resolve host, port and user name as a output of netstat.
+	netstat -c --- to view all network ports continously
+
+--------------------------------------------------------------------------------------------------------------------------
+
+NSLOOKUP COMMANDS:
+	
+	nslookup google.com(websitename) --- to find the actual ip address of the website with the help of DNS
+	nslookup -query=mx (websitename) --- Query Mail Exchanger Record
+	nslookup -type=ns tecmint.com --- Query Name Server
+	nslookup -type=any tecmint.com --- Query DNS Record
+	nslookup -type=soa tecmint.com --- Query Start of Authority
+	nslookup -port 56 tecmint.com --- Query Port Number
+
+--------------------------------------------------------------------------------------------------------------------------
+
+DIG COMMANDS:
+	
+	dig tecmint.com --- querying DNS nameservers for information about host addresses, mail exchanges, nameservers, and related information
+	dig tecmint.com +nocomments --- with no comments 
+	dig tecmint.com +noauthority --- with no authority
+
+--------------------------------------------------------------------------------------------------------------------------
+
+USER COMMANDS:
+	
+	useradd username --- to create username
+	passwd --- to set password for the user
+	useradd -d /data/projects username --- create a user in a different directory
+	useradd -u 734 username --- to create a user name with specified UID instead of random UID
+	useradd -u 1000 -g 500 username --- to create a user name with specified UID and GID
+	cat /etc/passwd | grep username --- to check the if the username is created
+	cut -d: -f1 /etc/passwd --- to get the list of users present
+	
+	useradd -G admins,webadmin,developers username --- add user to multiple groups
+	id username --- groups in which the user is there
+	
+	useradd -M username --- to create a user without home dir
+	
+	useradd -e 2014-03-27 username --- to create a user with expire date
+	chage -l username --- to check the expire date of the user
+	
+	useradd -c "some comment" username --- add user with custom comments
+	tail -1 /etc/passwd --- to check the comments
+	
+	useradd -s /sbin/nologin username --- Assigning a user to a different login shell instead of the standard shell (folder)
+	tail -1 /etc/passwd --- to check the assigned shell
+
+	useradd -m -d /var/www/username -s /bin/bash -U username --- Add a User with Specific Home Directory, Default Shell
+
+	useradd -m -d /var/www/username -s /bin/zsh -u 1000 -g 1000 username --- Add a User with Home Directory, Custom Shell and UID/GID
+
+	useradd -m -d /var/www/username -s /usr/sbin/nologin -u 1019 username --- disabling shell login
+
+	useradd -m -d /var/www/username -k /etc/custom.skell -s /bin/tcsh -u 1027 username --- Add a User with Home Directory, Shell, Custom Skell and User ID
+
+	useradd -M -N -r -s /bin/false --- Add a User without Home Directory, No Shell, No Group
+
+	-S --- FOR SHELL
+	-m -d --- -m - moving the contents of the home directory from existing home dir to new dir. d - To modify the directory for any existing user account.
+	-u --- UID
+	-g --- GID
+	-c --- comment
+	-M --- no home directory
+	-G --- multiple groups
+	-e --- expire date for the user
+
+	 /etc/passwd --- all the info of the user accounts will be stored here
+	 format of the data stored in the passwd folder
+	 [username]:[x]:[UID]:[GID]:[Comment]:[Home directory]:[Default shell]
+
+	 /etc/group --- 
+	 format of the data stored in the group folder
+	 [Group name]:[Group password]:[GID]:[Group members]
+
+	ac --- Display Statistics of Users Connect Time
+	ac -d --- in day wise
+	ac -p --- display time of each user
+	ac username --- to display time of the user
+	sa --- print all the account activity
+	sa -u --- print all the account activity of every user
+	sa -m --- no of processes
+	sa -c --- all activitys in percentage
+	lastcomm username --- all the last commands used by the user
+	lastcomm ls --- list of the indiuval commands
+
+--------------------------------------------------------------------------------------------------------------------------
+
+USERMOD COMMANDS:
+	
+	/etc/passwd – User account information.
+	/etc/shadow – Secure account information.
+	/etc/group – Group account information.
+	/etc/gshadow – Secure group account information.
+	/etc/login.defs – Shadow password suite configuration.
+	usermod --home /tmp tecmint --- changing the default home location
+	usermod --shell /bin/sh tecmint --- changing the dafault shell location
+
+	groups username --- display groups of the user
+	id username --- user info
+	
+	groupdel --- deleting a group
+	userdel --remove [username] --- deleting a username
+
+	-a = To add anyone of the group to a secondary group.
+	-l = To change the login name from tecmint to tecmint_admin.
+	-L = To lock the user account. This will lock the password so we can’t use the account.
+	-m = moving the contents of the home directory from existing home dir to new dir.
+	-s = Create a Specified shell for new accounts.
+	-U = To unlock the user accounts. This will remove the password lock and allow us to use the user account.	
+	-p = To Use un-encrypted password for the new password. (NOT Secured).
+
+--------------------------------------------------------------------------------------------------------------------------
+
+YUM COMMANDS:(Yellowdog Updater, Modified)
+
+	yum -y install firefox --- install the the dependencies with the install
+	yum -y remove firefox --- removes the application installed as well as the dependenceies 
+	yum update firefox --- updates the applications
+	yum list appname --- to list the packages 
+	yum search name --- to search all the available packages in the name
+	yum info packagename --- to get the info of the package
+	yum list --- to list all the Packages
+	yum check-update --- updates available or not
+	yum grouplist --- list of all group packages
+	yum groupinstall 'MySQL Database' --- to install group packages
+	groupupdate
+	groupremove
+	yum repolist --- To list all enabled Yum repositories 
+	yum repolist all
+	yum --enablerepo=epel install phpmyadmin --- To install a particular package from a specific enabled or disabled repository
+	yum shell --- custom shell
+	yum clean all --- clear yum cache
+	yum history
+
+--------------------------------------------------------------------------------------------------------------------------
+
+RPM COMMANDS:(RedHat Package Manager)
+
+	rpm --checksig packagename.rpm --- to Check an RPM Signature Package
+	rpm -ivh packagename.rpm --- to install the rpm package
+	rpm -qpR packagename.rpm --- to check the dependencies of rpm package
+	rpm -q packagename --- it tells if the package is installed
+	rpm -ql --- list all the files
+	rpm -qa --last --- list recently installed rpm files
+	rpm -Uvh packagename.rpm --- to update the package
+	rpm -evv packagename --- to remove the rpm
+	rpm -ev --nodeps packagename --- install withot dependencies
+	rpm -qa gpg-pubkey* --- list all imported RPM GPG keys
+	rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6 --- 
+	Rebuild a corrupted system:
+		cd /var/lib
+		rm __db*
+		rpm --rebuilddb
+		rpmdb_verify Packages
+
+--------------------------------------------------------------------------------------------------------------------------
+
+APT COMMANDS:(Advanced Packaging Tool)
+
+	apt-cache pkgnames --- list all the available packages
+	apt-cache search packagename --- package name and description of the package
+	apt-cache show packagename --- package information
+	apt-cache showpkg packagename --- dependencies of the package
+	apt-cache stats --- to show the statistics of the apt
+	sudo apt-get update --- to update system packages
+	sudo apt-get upgrade --- to upgrade other packages
+	sudo apt-get install packageName --no-upgrade --- packages without update
+	sudo apt-get remove packagename --- to uninstall a package without losing the config files
+	sudo apt-get purge packagename --- to uninstall a package and losing the config files
+	sudo apt-get clean --- to clear all the downloaded files
+	sudo apt-get source packagename --- to download and unpack the package
+	sudo apt-get --compile source packagename --- to download and unpack the package and compile
+	sudo apt-get download packagename --- download package without installing
+	sudo apt-get check --- to check the broken dependencies
+	sudo apt-get build-dep packagename --- search and build dependencies
+	sudo apt-get autoclean --- auto clean the cache
+	sudo apt-get autoremove packagename --- auto removes the package when its not required
+
+--------------------------------------------------------------------------------------------------------------------------
+
+DPKG COMMANDS:(Debian and derivative)
+	dpkg -i packagename.deb --- installing .deb packages
+	dpkg -l --- list all dpkg packages
+	dpkg -r packageName --- delete package
+	dpkg -c packageName --- content of the package
+	dpkg -s packageName --- check the package is installed or not
+	dpkg -R --install debpackages --- install all packages from a directory
+
+--------------------------------------------------------------------------------------------------------------------------
+
+DNF COMMANDS:(Dandified YUM)
+	
+	yum install dnf
+	dnf list --- list of packages in dnf
+	dnf list installed --- list of installed packages in dnf
+	dnf info nano --- info of the package
+
+--------------------------------------------------------------------------------------------------------------------------
+
+TOP COMMANDS:
+	top --- show information like tasks, memory, cpu and swap. Press ‘q‘ to quit window
+	Press (Shift+O) to Sort field via field letter, for example press ‘a‘ letter to sort process with PID
+	top -u username --- to specify processes of that username
+	press z for color change
+	Press c , it will display absolute path of running process.
+	press d , to change the refresh time
+	press k to kill the selected process
+	shift + p , to sort by cpu utilizzation
+	press r to change the priorities
+	top -n 1 -b > top-output.txt --- to save the top command in txt file
+
+--------------------------------------------------------------------------------------------------------------------------
+
+LSOF COMMANDS:
+	lsof --- list of all open files
+	lsof -u tecmint --- list of all opened file by the user
+	lsof -i TCP:22 --- list all running process in the port
+	lsof -i TCP:1-1024 --- to list the process in tcp from the range
+	lsof -i --- list all network connections
+	kill -9 `lsof -t -u tecmint` --- to kill all the active process of the user
+
+--------------------------------------------------------------------------------------------------------------------------
+
+CRON COMMANDS: (schedule tasks in the backgroud)
+
+	crontab --- cron table
+	crontab -l --- list of task
+	crontab -e --- to edit the task in any of the editors
+	crontab -u tecmint -l --- to list the task of a user
+	crontab -r --- deletes the task
+	crontab -i -r --- prompts you before you delete
+
+	eg for Schedule a Jobs for Specific Time:	
+	crontab -e
+	30 0 * * *   root   find /tmp -type f -empty -delete
+
+	eg for multiple commands:
+	crontab -e
+	@daily <command1> && <command2>
+
+	syntax:
+		Minute 
+		Hour 
+		Day of Month 
+		Month of the year 
+		Day of week 
+		Command
+
+	specialcharacters:
+
+		Asterik(*) – Match all values in the field or any possible value.
+		Hyphen(-) – To define range.
+		Slash (/) – 1st field /10 meaning every ten minute or increment of range.
+		Comma (,) – To separate items.
+
+	predefine cron directory:
+		/etc/cron.d
+		/etc/cron.daily
+		/etc/cron.hourly
+		/etc/cron.monthly
+		/etc/cron.weekly
+
+	Strings		Meanings
+	@reboot		Command will run when the system reboot.
+	@daily		Once per day or may use @midnight.
+	@weekly		Once per week.
+	@yearly		Once per year. we can use @annually keyword also
+	
+--------------------------------------------------------------------------------------------------------------------------
+
+TAR COMMANDS:(taped archive)
+	
+	tar -cvf nameofthefile.tar /home/techmint/(destinationdir)
+	tar -cvf nameofthefile.tar /home/techmint/(destinationdir)
+		c – Creates a new .tar archive file.
+		v – Verbosely show the .tar file progress.
+		f – File name type of the archive file.
+	gzip archive:
+	tar -cvzf nameofthefile.tar.gz /home/techmint/(destinationdir)
+	tar -cvzf nameofthefile.tgz /home/techmint/(destinationdir)(the above is same)
+	bz2 archive:
+	tar cvfj Phpfiles-org.tar.bz2 /home/php
+	tar cvfj Phpfiles-org.tar.tbz /home/php
+	tar cvfj Phpfiles-org.tar.tb2 /home/php
+	note:file size is small in bz2.we can compress only gzip to bz2(bz2<gzip<tar)
+
+	to extract:
+	tar -xvf public_html-14-09-12.tar or .tar.gz or .tar.bz2 -C /home/public_html/videos/
+		x - extract
+		C - destination dir
+
+	list of the tar:
+		tar -tvf uploadprogress.tar or .tar.gz or .tar.bz2
+			t-list content
+
+	to extract a single file in .tar:
+		tar -xvf cleanfiles.sh.tar cleanfiles.sh
+						or
+		tar --extract --file=cleanfiles.sh.tar cleanfiles.sh
+	to extract a single file in .tar.gz:
+		tar -zxvf tecmintbackup.tar.gz tecmintbackup.xml
+							or
+		tar --extract --file=tecmintbackup.tar.gz tecmintbackup.xml
+	to extract a single file in .tar.bz2:
+		tar -zxvf tecmintbackup.tar.gz tecmintbackup.xml
+							or
+		tar --extract --file=tecmintbackup.tar.gz tecmintbackup.xml
+
+	Untar Multiple files from tar, tar.gz and tar.bz2 File:
+
+		tar -xvf tecmint-14-09-12.tar "file 1" "file 2" 
+		tar -zxvf MyImages-14-09-12.tar.gz "file 1" "file 2" 
+		tar -jxvf Phpfiles-org.tar.bz2 "file 1" "file 2"
+
+	Extract Group of Files using Wildcard:
+
+		tar -xvf Phpfiles-org.tar --wildcards '*.php'
+		tar -zxvf Phpfiles-org.tar.gz --wildcards '*.php'
+		tar -jxvf Phpfiles-org.tar.bz2 --wildcards '*.php'
+
+	Add Files or Directories to tar Archive File:
+
+		tar -rvf tecmint-14-09-12.tar xyz.txt
+		tar -rvf MyImages-14-09-12.tar.gz xyz.txt
+		tar -rvf Phpfiles-org.tar.bz2 xyz.txt
+			r - append 
+
+	to verify the content in tar:
+
+		tar tvfW tecmint-14-09-12.tar
+			w-verify
+
+	check the size:
+
+		tar -czf - tecmint-14-09-12.tar | wc -c
+		tar -czf - MyImages-14-09-12.tar.gz | wc -c
+		tar -czf - Phpfiles-org.tar.bz2 | wc -c 
+
+	c – create a archive file.
+	x – extract a archive file.
+	v – show the progress of archive file.
+	f – filename of archive file.
+	t – viewing content of archive file.
+	j – filter archive through bzip2.
+	z – filter archive through gzip.
+	r – append or update files or directories to existing archive file.
+	W – Verify a archive file.
+	wildcards – Specify patterns in unix tar command
+
+--------------------------------------------------------------------------------------------------------------------------
+
+How to Open, Extract and Create RAR Files:
+	
+	rar install in ubuntu:
+		sudo apt-get install unrar
+	rar install in centos:
+		cd /tmp
+		wget https://www.rarlab.com/rar/rarlinux-x64-5.6.0.tar.gz
+		tar -zxvf rarlinux-x64-5.6.0.tar.gz
+		cd rar
+		sudo cp -v rar unrar /usr/local/bin/
+
+	How to Open/Extract a RAR File:
+		unrar e tecmint.rar /home/
+		unrar x tecmint.rar (this is extract it exactly the same as the original)
+
+	How to List a RAR File:
+		unrar l tecmint.rar
+
+	How to Test a RAR File:
+		unrar t tecmint.rar
+
+	How to Install Rar:
+		sudo apt-get install rar
+		sudo dnf install rar
+		yum install rar
+
+	How to Create Rar File:
+		rar a tecmint.rar tecmint	
+
+	How to Delete files from Archive:
+		rar d filename.rar
+
+	How to Recover Archives:
+		rar r filename.rar	
+
+	How to Update Archives:
+		rar u tecmint.rar tecmint.sql
+		rar l tecmint.rar (to verify)
+
+	How to Set Password to Archives:
+		rar a -p tecmint.rar
+
+	How to Lock Archives:
+		rar k tecmint.rar
+
+--------------------------------------------------------------------------------------------------------------------------
+
+AR COMMANDS:
+	
+	-d : Delete modules from the archive.
+	-m : Move Members in the archive.
+	-p : Print specified members of the archive.
+	-q : Quick Append.
+	-r : Insert file member to archive.
+	-s : Add index to archive.
+	-a : Add a new file to the existing members of archive.		
+
+--------------------------------------------------------------------------------------------------------------------------
+
+Rsync COMMANDS:(Remote Sync)
+	
+	apt-get install rsync (On Debian based systems)
+	
+	rsync options source destination (syntax)
+
+		-v : verbose
+		-r : copies data recursively (but don’t preserve timestamps and permission while transferring data
+		-a : archive mode, archive mode allows copying files recursively and it also preserves symbolic links, file permissions, user & group ownerships and timestamps
+		-z : compress file data
+		-h : human-readable, output numbers in a human-readable format
+
+	Copy/Sync a File on a Local Computer:
+
+		rsync -zvh backup.tar /tmp/backups/
+
+--------------------------------------------------------------------------------------------------------------------------
+
+SCP COMMANDS:
+	
+	scp source_file_name username@destination_host:destination_folder
+
+	-v --- parameter to print debug information into the screen
+	-p --- parameter will help you on this. An estimated time and the connection speed will appear on the screen.
+	-C --- parameter will compress your files on the go
+	-c --- encrpt
+	-l --- parameter will limit the bandwidth to use
+	-P --- to specify port use
+
+--------------------------------------------------------------------------------------------------------------------------
+
+chkconfig Command:
+	chkconfig --list --- to list all services
+	chkconfig --list --- to check a specific service
+	chkconfig --level 35 httpd on --- Start a Particular Service on Run Levels
+	chkconfig --list | grep 5:on --- to check if the service is off or on 
+	chkconfig --level 2345 postfix off --- Stop a Particular or multiple Service on Run Levels
+
+--------------------------------------------------------------------------------------------------------------------------
+
+ACL COMMANDS:
+	yum install nfs4-acl-tools acl libacl
+	sudo apt-get install nfs4-acl-tools acl
+
+	getfacl Music/ --- to check the list of acl
+	setfacl -m d:o:rx Music/ --- to set it to read and execute
+
+	setfacl -m u:tecmint1:rw /tecmint1/example --- to set new acl
+	getfacl /tecmint1/example --- to check the acl
+
+	setfacl -x ACL file/directory --- remove only specified ACL from file/directory.
+	setfacl -b  file/directory --- removing all ACL from file/direcoty
+
+--------------------------------------------------------------------------------------------------------------------------
+
+OTHER IMP COMMANDS:
+
+	lsblk --- (List Block Devices) print block devices by their assigned name in a tree-like fashion (pendrives	)
+	lsblk -l ---  list block devices in ‘list‘ structure
+	md5sum filename --- (Compute and Check MD5 Message Digest) checks for md5 checksum number or hash number of the file
+	dd if=location of iso file of=dir of usb bs=512M; sync --- (convert and copy) it is used to make a bootable usb stick commonly
+	uname -a ---(Unix Name) prints the info of machine name ,os and kernal 
+	history --- to check the history of commands
+	sudo --- super user
+	mkdir --- make directory
+	chmod 777 filename --- (change file mode bits) changes the file permissions
+	chown server:server filename--- (change file owner and group) we can change the owner and group
+	apt ---(Advanced Package Tool) to search and install updates and packages
+	tar -czvf name-of-archive.tar.gz /path/to/directory-or-file --- (Tape Archive) Compress an Entire Directory or a file
+	cal 2 1996 --- it denotes the calender and 2 is month and 1996 is year
+	date --set "'14 may 2013 13:57'"--- to show the date and set date
+	cp "dir or file to be copied" "pasting dir" --- copies data from one file to another (remove the " for both cp and mv)
+	mv "dir or file to be copied" "pasting dir" ---  moves data from one file to another
+	whereis ls --- to locate the file orgin of a command
+	rm -rf --- to remove directory
+	rm --- to remove files
+	passwd --- password change
+	lpr -P printername filename and extension --- to print the file to the given printer
+	lpq printername --- to check the status of the printer
+	cmp file1.txt file2.txt --- helps in getting the difference in the two file regardless of the type of file
+	wget url --- to download files from the web in the background
+	
+	mount usb:
+	lsblk --- to check the name of the usb drive
+	su --- to become root
+	create a directory
+	mount 'old usb directory' 'new usb directory'
+ 	
+ 	gcc filename.c --- compiler for c
+ 	./a.out --- to execute c
+	
+	g++ --- for c++ commands
+
+	javac tecmint.java --- to compile java programs
+	java tecmint --- to execute java programs
+
+	uptime --- to verify what happened when the server was unattended
+
+	wall --- to broadcast message all over the network
+
+	mesg [n|y] --- n prevents from sending message and y allows sending of Message
+
+	write (username) --- we can text to the user 
+	talk (username) --- we can talk to the user (apt-get install talk (to install talk))
+
+	w --- combination of uptime and who commands given one immediately after the other, in that order.
+	top --- Displays the processes of CPU
+
+	alias cp='rsync -aP' --- to show progress bar while copying and showing info of the copied file
+
+	mysqldump -u root -p --all-databases > /home/server/Desktop/backupfile.sql --- backs up a particular db to a file
+
+	mkpasswd -l 10 --- to create a random password with 10 characters
+
+	lsof --- displays all the files that your system has currently opened (list open files)
+	
+	factor (number) --- gives the factors of the number
+
+	yes "text" --- spams the text till we stop
+
+	python -m SimpleHTTPServer --- starts a simple webpage 
+
+	filename.extension --- deletes all the content in the file
+
+	at --- to run a command at a given time
+
+	expr --- simple math problems
+
+	ping -i 60 -a IP_address --- to ping the ip address
+
+	strace --- debugging tool to know more type -h
+
+	chattr +i file1 --- to create a file which cant be deleted or renamed
+
+	scp [OPTION] [user@]SRC_HOST:]file1 [user@]DEST_HOST:]file2 --- secure copy
+
+		-P Specifies the remote host ssh port.
+		-p Preserves files modification and access times.
+		-q Use this option if you want to suppress the progress meter and non-error messages.
+		-C. This option will force scp to compresses the data as it is sent to the destination machine.
+		-r This option will tell scp to recursively copy directories.
+
+
+	DANGER COMMANDS:
+
+		:(){:|:&};: --- to execute everything twice until the system freezes
+
+	shar ---shell archive
+	Create a shar archive file:
+		shar file_name.extension > filename.shar
+	Extract an shar archive file:
+		unshar file_name.shar
+
+	to create a public key and private key:
+	ssh-keygen -t rsa -b 2048
+
+	Scalpel (A Filesystem Recovery Tool) to Recover Deleted Files/Folders in Linux
+
+	How to Clone/Backup Linux Systems Using – Mondo Rescue Disaster Recovery Tool
+
+	Open Source “Disk Cloning/Backup” Softwares:
+	Clonezilla
+	Redo Backup
+	Mondo Rescue
+	Partimage
+	Partimage
+	Partclone
+	doClone
+	G4L
+
+	list the existing Raid array:
+		mdadm --detail /dev/md0
+
+	pvs --- physical volume
+	vgs --- volume group
+	lvs --- logical volume
+
+	netstat -lp --- no of connection in the ports
+
+	Starting or Stopping Services:
+		systemctl start media-samba.mount
+		systemctl status media-samba.mount
+		systemctl stop media-samba.mount
+		systemctl restart media-samba.mount
+		systemctl status media-samba.mount
+
+	systemctl enable [service] --- enable a service 
+	systemctl disable [service] --- prevent a service from starting at boot
+	systemctl reboot --- restart system
+	systemctl shutdown --- shutdown system
+
+	Disable USB stick to Detect:
+		go to /etc/modprobe.d/ create a file named 'no-usb'
+		 and type 'install usb-storage /bin/true'
+
+	ALL TCP ports (sockets) that are open on our server:
+		ss -t -a
+
+	Displaying ALL active TCP connections with their timers:	
+		ss -t -o
+
+	Filtering connections by socket:
+		ss -tn sport = :80
+
+	Displaying information about open ports:
+		nmap -A -sS [IP address or hostname]
+
+	to find the ip address of the computer:
+		hostname -I
+
+--------------------------------------------------------------------------------------------------------------------------
+
+Command Line Tools to Monitor Linux Performance:
+
+	top 
+	vmstat --- stats of virtual memory, kernerl threads, disks, system processes, I/O blocks, interrupts, CPU activity 
+	lsof
+	tcpdump -i eth0 --- to check the capture tcp packets and store them. snipper tool
+	netstat -a
+	htop --- same as top but user friendly
+	iotop --- same but displays real time Disk I/O and processes
+	iostat --- input output stat
+	iptraf-ng --- Real Time IP LAN Monitoring
+	Monit --- another tool
+	NetHogs –-- Monitor Per Process Network Bandwidth
+	iftop –-- Network Bandwidth Monitoring
+	Monitorix --– System and Network Monitoring
+	Arpwatch –-- Ethernet Activity Monitor
+	Suricata –-- Network Security Monitoring
+	VnStat PHP --– Monitoring Network Bandwidth
+	Nagios –-- Network/Server Monitoring
+	Nmon --- Monitor Linux Performance
+	Collectl --- All-in-One Performance Monitoring Tool
+	Wireshark – Network Protocol Analyzer
+	Munin – Network Monitoring
+	Cacti – Network and System Monitoring
+	Linux Dash – Linux Server Performance Monitoring
+	PHP Server Monitoring
+	Web VMStat – System Statistics Monitoring
+	Apache Status Monitoring
+
+--------------------------------------------------------------------------------------------------------------------------
+
+Installing psacct or acct Packages:
+	
+	sudo apt-get install acct --- install the acct 
+	# chkconfig psacct on --- to configure psacct first
+	# /etc/init.d/psacct start --- to start the service
+
+--------------------------------------------------------------------------------------------------------------------------
+		
+Download and Install Advanced-Copy:( to get the progression bar)
+	commands:
+		wget http://ftp.gnu.org/gnu/coreutils/coreutils-8.21.tar.xz
+		tar xvJf coreutils-8.21.tar.xz
+		cd coreutils-8.21/
+		wget https://raw.githubusercontent.com/atdt/advcpmv/master/advcpmv-0.5-8.21.patch
+		patch -p1 -i advcpmv-0.5-8.21.patch (we get an error when we go to ./configure)
+		export FORCE_UNSAFE_CONFIGURE=1 (to fix the configuration)
+		./configure
+		cp src/cp /usr/local/bin/cp (to copy the files)
+		cp src/mv /usr/local/bin/mv (to move the files)
+		
+		alias name for copying:
+		alias cp='cp -gR'
+		alias mv='mv -g'
+
+		commands to use advance copy:
+		cp -gR /Tecmint.com/ /data/
+		cp -R --progress-bar /Tecmint.com/ /data/
+
+		commands to use advance move:
+		mv --progress-bar Songs/ /data/
+		mv -g Songs/ /data/
+
+---------------------------------------------------------------------------------------------------------------------------
+
+VI and Nano editor:
+
+	vi a.txt
+	press ‘i’ to enter insert mode
+	alt+x (exit insert mode, remember to keep some space between the last letter.
+	ctrl+x command or your last word will be deleted).
+	:wq! (saves the file, with the current text, remember ‘!’ is to override).
+	q or  is for quiting
+	wq or x is for saving
+	q! is used to delete the change done at that moment 
+
+	shift + g is used to go to the last line
+	g+g is used to go to the first line
+	y+y is used to copy the line
+	d+d is used to delete the line
+	p is used to paste
+
+	nano a.txt
+	ctrl +x
+
+---------------------------------------------------------------------------------------------------------------------------
+
+EXTRA NOTES:
+
+	A file in the file system is basically a link to an inode.
+	A hard link then just creates another file with a link to the same underlying inode.
+
+	When you delete a file it removes one link to the underlying inode. The inode is only deleted (or deletable/over-writable) when all links to the inode have been deleted.
+
+	A symbolic link is a link to another name in the file system.
+
+	Once a hard link has been made the link is to the inode. deleting renaming or moving the original file will not affect the hard link as it links to the underlying inode. Any changes to the data on the inode is reflected in all files that refer to that inode.
+
+	Note: Hard links are only valid within the same File System. Symbolic links can span file systems as they are simply the name of another file
+
+	UID --- user identifier
+	GID --- group identifier
+	SUID --- special user identifier
+	SGID --- special group identifier
+
+
+	DISTRIBUTION					LOW-LEVEL TOOL			HIGH-LEVEL TOOL
+ 	
+ 	Debian and derivatives	 			dpkg	 			apt-get / aptitude
+ 	CentOS	 							rpm	 				yum
+ 	openSUSE	 						rpm	 				zypper
+
+
+	Signal Name		Signal Value			Behaviour
+
+	SIGHUP			      1					Hangup
+	SIGKILL			      9					Kill Signal
+	SIGTERM			      15				Terminate
+
+----------------------------------------------------------------------------------------------------------------------------
+
+Errors in the process:
+	
+	Fixing Unable to lock the administration directory (/var/lib/dpkg/) error :
+		ps aux | grep -i apt (finds the process id)
+		sudo kill -9 <process id> (this kills the apt process)
+
+	
+	Yum Command Fails with “Another app is currently holding the yum lock” in CentOS:
+		go to the below file
+		/etc/yum/pluginconf.d/ then go to nano refresh-packagekit.conf  and type the below command 
+
+			[main]
+			enabled=0
+
+----------------------------------------------------------------------------------------------------------------------------
+
+The following commands will get you the IP address list to find public IP addresses for your machine:
+
+curl ifconfig.me
+curl -4/-6 icanhazip.com
+curl ipinfo.io/ip
+curl api.ipify.org
+curl checkip.dyndns.org
+dig +short myip.opendns.com @resolver1.opendns.com
+host myip.opendns.com resolver1.opendns.com
+curl ident.me
+curl bot.whatismyipaddress.com
+curl ipecho.net/plain
+
+
+The following commands will get you the private IP address of your interfaces:
+
+ifconfig -a
+ip addr (ip a)
+hostname -I | awk '{print $1}'
+ip route get 1.2.3.4 | awk '{print $7}'
+(Fedora) Wifi-Settings→ click the setting icon next to the Wifi name that you are connected to → Ipv4 and Ipv6 both can be seen
+nmcli -p device show
+
+----------------------------------------------------------------------------------------------------------------------------
+
+sed commands # important
+awk commands # important
+
+awk '/SpotPrice/{spotprice=$2 ; print spotprice ; }' 
+sed 's/\"//g'
+
+---------------------------------------------------------------------------------------------------------------------------
+
+cat /etc/os-release --- to check the os version
+env | less --- to check the env
+cat /dev/null > output.txt --- to delete the content of a file

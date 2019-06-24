@@ -1,0 +1,102 @@
+version: '3'
+services:
+ zookeeper1:
+  container_name: zookeeper-1
+  image: zoo-hbase-postgres:latest 
+  network_mode: "host"
+  volumes:
+    - /data/zk1:/opt/zookdata
+  environment:
+    - SERVER_ID=1
+    - ADDITIONAL_ZOOKEEPER_1=server.1=localhost:2888:3888
+    - ADDITIONAL_ZOOKEEPER_2=server.2=localhost:2889:3889
+    - ADDITIONAL_ZOOKEEPER_3=server.3=localhost:2890:3890
+    - ADDITIONAL_ZOOKEEPER_4=clientPort=2181
+    - ZOODIR=dataDir=/opt/zookdata
+  command: "sh /opt/zoo-conf.sh ${IP}"
+  ports:
+    - "2181:2181"
+ zookeeper2:
+  container_name: zookeeper-2
+  image: zoo-hbase-postgres:latest
+  network_mode: "host"
+  volumes:
+    - /data/zk2:/opt/zookdata
+  environment:
+    - SERVER_ID=2
+    - ADDITIONAL_ZOOKEEPER_1=server.1=localhost:2888:3888
+    - ADDITIONAL_ZOOKEEPER_2=server.2=localhost:2889:3889
+    - ADDITIONAL_ZOOKEEPER_3=server.3=localhost:2890:3890
+    - ADDITIONAL_ZOOKEEPER_4=clientPort=2182
+    - ZOODIR=dataDir=/opt/zookdata
+  command: "sh /opt/zoo-conf.sh ${IP}"
+  ports: 
+    - "2182:2182"
+ zookeeper3:
+  container_name: zookeeper-3
+  image: zoo-hbase-postgres:latest
+  network_mode: "host"
+  volumes:
+    - /data/zk3:/opt/zookdata
+  environment:
+    - SERVER_ID=3
+    - ADDITIONAL_ZOOKEEPER_1=server.1=localhost:2888:3888
+    - ADDITIONAL_ZOOKEEPER_2=server.2=localhost:2889:3889
+    - ADDITIONAL_ZOOKEEPER_3=server.3=localhost:2890:3890
+    - ADDITIONAL_ZOOKEEPER_4=clientPort=2183
+    - ZOODIR=dataDir=/opt/zookdata
+  command: "sh /opt/zoo-conf.sh ${IP}"
+  ports: 
+    - "2183:2183"
+ hbase-master:
+  container_name: hbase-master
+  image: zoo-hbase-postgres:latest
+  network_mode: "host"
+  volumes:
+    - /data/hbase:/tmp/hbase
+  environment:
+    - ZOOHOST=$IP
+    - JAVAPATH=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.201.b09-2.el7_6.x86_64
+  command: sh /opt/hbase-conf.sh master 
+  ports:
+    - "60000:60000"
+ hbase-regionserver:
+  container_name: hbase-regionserver
+  image: zoo-hbase-postgres:latest
+  network_mode: "host"
+  volumes:
+    - /data/hbase:/tmp/hbase
+  environment:
+    - ZOOHOST=$IP
+    - JAVAPATH=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.201.b09-2.el7_6.x86_64
+  command: sh /opt/hbase-conf.sh regionserver
+  ports:
+    - "60020:60020"
+ postgresql:
+  container_name: postgresql
+  image: zoo-hbase-postgres:latest
+  network_mode: "host"
+  volumes:
+    - /data/postgres/pgsql:/var/lib/pgsql
+  ports:
+    - "5432:5432"
+  command: sh /opt/postgres-start.sh 
+ redis:
+  container_name: redis
+  image: zoo-hbase-postgres:latest
+  network_mode: "host"
+  command: "sh /opt/redis-start.sh ${IP1}"
+  ports:
+    - "6379:6379"
+ celery_worker:
+  container_name: celery_worker
+  image: zoo-hbase-postgres:latest
+  network_mode: "host"
+  command: "sh /opt/celery-start.sh ${IP1}"
+ application:
+  container_name: application_apache_server
+  image: zoo-hbase-postgres:latest
+  network_mode: "host"
+  command: "sh /opt/application-start.sh ${IP1}"
+  ports:
+    - "80:80"

@@ -1,0 +1,44 @@
+Docker-CE installation in centos-7
+
+sudo yum remove docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-selinux docker-engine-selinux docker-engine  -y
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+sudo yum install docker-ce -y
+sudo systemctl start docker
+sudo docker run hello-world
+   Error starting daemon: error initializing graphdriver: overlay: the backing xfs filesystem is formatted without d_type support, which leads to incorrect behavior
+   error starting daemon: error initializing graphdriver: driver not supported
+      solved by In file /etc/systemd/system/docker.service.d/execstart.conf
+ 		ExecStart=/usr/bin/dockerd --graph=/var/lib/docker --storage-driver=overlay
+  		removed option "--storage-driver" and then restarted docker.service
+   sudo systemctl daemon-reload
+   sudo systemctl restart docker.service
+   sudo systemctl status docker.service
+
+
+
+
+docker-compose installation
+
+sudo curl -L "https://github.com/docker/compose/releases/download/1.23.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+# export JAVA_HOME=/usr/java/jdk1.6.0/
+
+
+
+FROM centos
+RUN yum -y update;
+yum clean all
+
+
+
+WORKDIR /opt
+
+RUN curl -L -C - -b "oraclelicense=accept-securebackup-cookie" -0 https://download.oracle.com/otn-pub/java/jdk/8u201-b09/42970487e3af4f5aa5bca3f542482c60/jdk-8u201-linux-x64.tar.gz -o jdk-8u201-linux-x64.tar.gz
+
+RUN tar -xvf jdk-8u201-linux-x64.tar.gz
+
+RUN mv /opt/jdk1.8.0_201 /opt/java
+RUN echo "export JAVA_HOME=/opt/java" >> ~/.bashrc
+
+RUN echo "export PATH=$PATH:$JAVA_HOME/bin" >> ~/.bashrc

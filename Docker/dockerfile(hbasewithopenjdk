@@ -1,0 +1,49 @@
+FROM ubuntu ### this pulls ubuntu os from the dockerhub, since we dint specific the os  version it downloads the latest version
+
+MAINTAINER shrikkanth
+### installation of openjava ###
+
+RUN apt-get -y update ### inside the container we wont have anything so we start by updating the file
+RUN apt-get -y install software-properties-common ### then we get all the basic commands to run in the container by installing them
+RUN apt-get -y update
+
+RUN add-apt-repository -y ppa:openjdk-r/ppa  ### adding the repository 
+
+RUN apt-get -y update
+
+RUN apt-get -y install openjdk-8-jdk ### installing the openjdk 
+
+RUN update-alternatives --config java ### configuring the correct version of java you need to use
+
+RUN java -version ### to configure the java version
+
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64  ###echo is not working properly so we use env
+ENV PATH $JAVA_HOME/bin:$PATH
+
+RUN  echo $JAVA_HOME ### to see the path of the java form the home directory	
+
+### to install hbase ###
+
+RUN cd
+RUN mkdir hduser
+RUN chmod -R 755 hduser ### this helps in changing the access of the hduser folder and its sub folders and files
+RUN cd hduser
+RUN apt-get -y install wget ### since we dont have wget we install it 
+RUN apt-get	-y update
+RUN wget http://us.mirrors.quenda.co/apache/hbase/1.3.4/hbase-1.3.4-bin.tar.gz  ### we pull and download the file from the website
+RUN apt-get -y update 
+RUN tar -xvf hbase-1.3.4-bin.tar.gz -C /hduser/ ### to inside the folder and extract the tar file
+
+RUN cd
+### sudo chown -R roxor:roxor hduser
+### sudo chmod -R 755 hduser
+###paste the JAVA_HOME path inside
+
+ENV HBASE_HOME /hduser/hbase-1.3.4 ### env for the hbase 
+ENV PATH $PATH:/$HBASE_HOME/bin
+
+RUN sed -i "s|# export JAVA_HOME=/usr/java/jdk1.6.0/|export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/\nexport JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/ |g" /hduser/hbase-1.3.4/conf/hbase-env.sh ###this helps in replacing the text inside the file and replacing it with the correct env
+
+RUN cd /etc && cat hosts
+RUN cd
+RUN cd /hduser/hbase-1.3.4/bin && chmod 755 start-hbase.sh &&./start-hbase.sh && jps && hbase shell 

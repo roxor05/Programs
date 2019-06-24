@@ -1,0 +1,34 @@
+Docker builds images by reading instructions from a Dockerfile. A Dockerfile is a simple text file that contains instructions that can be executed on the command line. Using docker build, you can start a build that executes all of the command-line instructions contained in the Dockerfile.
+
+Common Dockerfile instructions start with RUN, ENV, FROM, MAINTAINER, ADD, and CMD, among others.
+
+FROM - Specifies the base image that the Dockerfile will use to build a new image. For this post, we are using phusion/baseimage as our base image because it is a minimal Ubuntu-based image modified for Docker friendliness.
+
+MAINTAINER - Specifies the Dockerfile Author Name and his/her email.
+
+RUN - Runs any UNIX command to build the image.
+
+ENV - Sets the environment variables. For this post, JAVA_HOME is the variable that is set.
+
+CMD - Provides the facility to run commands at the start of container. This can be overridden upon executing the docker run command.
+
+ADD - This instruction copies the new files, directories into the Docker container file system at specified destination.
+
+EXPOSE - This instruction exposes specified port to the host machine.
+
+
+### building a docker file  ###
+
+docker build -f Dockerfile -t demo/maven:3.3-jdk-8
+
+### running a docker file ###
+
+$ docker run -it --rm -v "$PWD":/app -w /app demo/maven:3.3-jdk-8 mvn archetype:generate -DgroupId=com.mycompany.app -DartifactId=my-app -DarchetypeArtifactId=maven-archetype-quickstart -Dinte
+
+
+Name : shrikkanth
+Data : DSR - may 14, 2019
+Task:   
+1)Docker creation for Postgresql installation and running it and creating .sh file for it
+2)installation of java 1.8 and creating .sh file for it
+3)Uploaded version in github repostory by adding files and changed file data

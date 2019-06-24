@@ -1,0 +1,40 @@
+### to access the instance 
+
+ssh -i /home/roxor/Downloads/access root@95.216.147.252
+
+docker run -it 4925e3cf58f8 #image id
+
+docker exec -it <container name> /bin/bash
+
+#####pushing docker container image to docker hub #####
+
+docker login
+docker image ls
+docker ps -a
+docker commit 1c549cdb45e2 # to create the container id to an image
+
+docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+<none>              <none>              4925e3cf58f8        40 seconds ago      790MB
+
+docker tag imageid shrikkanth/ubuntu18.04_withjava12:1
+
+docker push  shrikkanth/ubuntu18.04_withjava12:1
+
+##### after pushing you need to create image using the image you have newly created and execute container on it and update it in dockerhub ######
+
+docker run -it 4925e3cf58f8 #image id
+
+docker exec -it <container name> /bin/bash
+
+docker ps -a
+
+docker commit 1c549cdb45e2 # to create the container id to an image
+
+docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+<none>              <none>              4925e3cf58f8        40 seconds ago      790MB
+
+docker tag imageid shrikkanth/ubuntu18.04_withjava12:2 #version change
+
+docker push  shrikkanth/ubuntu18.04_withjava12:2

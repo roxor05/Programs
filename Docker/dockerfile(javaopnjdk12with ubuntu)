@@ -1,0 +1,23 @@
+FROM ubuntu
+
+MAINTAINER shrikkanth
+
+RUN apt-get -y update
+RUN apt-get -y install software-properties-common
+
+RUN add-apt-repository -y ppa:openjdk-r/ppa
+
+RUN apt-get -y update
+
+RUN apt-get -y install openjdk-8-jdk
+
+RUN update-alternatives --config java
+
+RUN java -version
+
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
+ENV PATH $JAVA_HOME/bin:$PATH
+###RUN export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+###RUN export PATH=$JAVA_HOME/bin:$PATH
+
+RUN echo $JAVA_HOME

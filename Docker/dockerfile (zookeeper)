@@ -1,0 +1,47 @@
+FROM ubuntu ### this pulls ubuntu os from the dockerhub, since we dint specific the os  version it downloads the latest version
+
+MAINTAINER shrikkanth
+### installation of openjava ###
+
+RUN apt-get -y update ### inside the container we wont have anything so we start by updating the file
+RUN apt-get -y install software-properties-common ### then we get all the basic commands to run in the container by installing them
+RUN apt-get -y update
+
+RUN add-apt-repository -y ppa:openjdk-r/ppa ### adding the repository
+
+RUN apt-get -y update
+
+RUN apt-get -y install openjdk-8-jdk ### installing the openjdk
+
+RUN update-alternatives --config java ### configuring the correct version of java you need to use
+
+RUN java -version ### to configure the java version
+
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64 ###echo is not working properly so we use env
+ENV PATH $JAVA_HOME/bin:$PATH
+
+RUN  echo $JAVA_HOME ### to see the path of the java form the home directory
+
+### to install zookeeper ###
+RUN mkdir hduser && chmod -R 755 hduser && cd hduser ### this helps in changing the access of the hduser folder and its sub folders and files
+RUN apt-get -y install wget
+RUN wget http://mirrors.estointernet.in/apache/zookeeper/zookeeper-3.4.14/zookeeper-3.4.14.tar.gz ### we pull and download the file from the website
+RUN tar -xvf zookeeper-3.4.14.tar.gz -C /hduser/ ### to inside the folder and extract the tar file
+RUN cd /hduser/zookeeper-3.4.14 && mkdir data 
+
+RUN cd / && echo "tickTime = 2000 \
+dataDir = /path/to/zookeeper/data \
+clientPort = 2181 \
+initLimit = 5 \
+syncLimit = 2" >> hduser/zookeeper-3.4.14/conf/zoo.cfg  ### to append in the file
+
+ 
+ENV ZOO_LOG_DIR /var/log/zookeeper
+
+RUN mkdir /var/lib/zookeeper && cd /var/lib 
+RUN mkdir /var/log/zookeeper && cd /var/log
+
+RUN cd /hduser/zookeeper-3.4.14/bin/ && ./zkServer.sh start # to start zookeeper server
+RUN cd /hduser/zookeeper-3.4.14/bin/ && ./zkCli.sh # to open console
+
+###RUN bin/zkServer.sh stop # to stop the zookeeper server

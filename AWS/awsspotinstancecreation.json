@@ -1,0 +1,9 @@
+{
+	  "ImageId": "ami-074acc26872f26463",
+	  "KeyName": "Accesskeypair",
+	  "SecurityGroupIds": ["sg-064caf9c470e4e8e6"],
+	  "InstanceType": "",
+	  "Placement": {
+	    "AvailabilityZone": "us-east-1a"
+	  }
+}

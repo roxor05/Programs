@@ -1,0 +1,104 @@
+##### to access the instance's container #####
+
+ssh -i /home/roxor/Downloads/access root@95.216.147.252
+
+docker images
+
+docker pull imagename ### or docker run -it imageid 
+
+docker exec -it <container name> /bin/bash
+
+##### pushing docker container image to docker hub #####
+
+docker login
+docker image ls
+docker ps -a
+docker commit 1c549cdb45e2 # to create the container id to an image
+
+docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+<none>              <none>              4925e3cf58f8        40 seconds ago      790MB
+
+docker tag imageid shrikkanth/ubuntu18.04_withjava12:1
+
+docker push  shrikkanth/ubuntu18.04_withjava12:1
+
+docker run -d -it -p 80:8080 --name=kz kangzeroo npm run ec2 -- --host=0.0.0.0
+
+docker login [OPTIONS] [SERVER]
+
+docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]
+
+docker push [OPTIONS] NAME[:TAG]
+
+##### after pushing you need to create image using the image you have newly created and execute container on it and update it in dockerhub ######
+
+docker run -it 4925e3cf58f8 #image id
+
+docker exec -it <container name> /bin/bash
+
+docker ps -a
+
+docker commit 1c549cdb45e2 # to create the container id to an image
+
+docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+<none>              <none>              4925e3cf58f8        40 seconds ago      790MB
+
+docker tag imageid shrikkanth/ubuntu18.04_withjava12:2 #version change
+
+docker push  shrikkanth/ubuntu18.04_withjava12:2
+
+
+##################### how  to remove images and containers ######################
+
+sudo docker run -it -d 7698f282e524
+
+docker rmi <IMAGE ID> # to delete all the images installed
+
+docker images # to see the images installed 
+
+docker rm <CONTAINER ID> # to remove container
+
+docker ps -a # to see all the docker images running
+
+docker stop $(docker ps -a -q) # to stop all the containers
+
+docker rm $(docker ps -a -q) # to remove all the containers
+
+docker rmi $(docker images) # to remove all the images
+
+##### to add sudo to the docker ######
+vi /etc/sudoers
+
+add a line:
+
+user ALL=(ALL) ALL
+
+1.) set the shell file to be executed while creating container from docker image itself. Also test it.
+2.) copy the shell file inside the container to local directory and check. create a volume, use it for running an image and test it.
+
+####################################################################################
+to get the ip of the container
+
+docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' container_name_or_id
+
+~/.bashrc
+
+####### to run dockerfile ##########
+
+docker cp zookeeper.sh e5d0a0de3eaf:/zookeeper.sh
+
+docker build -f Dockerfile -t nameyouwanttokeepfortheimage .
+
+### to give environment for java in docker file ###
+RUN echo "export PATH=\$PATH:\$JAVA_HOME/bin" >> ~/.bashrc
+
+
+Stop all running containers: docker stop $(docker ps -a -q)
+
+Delete all stopped containers: docker rm $(docker ps -a -q)
+
+##############################################################################
+
+RUN sed -i "s|# export JAVA_HOME=/usr/java/jdk1.6.0/|export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/\nexport JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/ |g" /hduser/hbase-1.3.4/conf/hbase-env.sh ------------- to append files in dockerfile

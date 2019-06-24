@@ -1,0 +1,104 @@
+how to install aws cli:
+https://docs.aws.amazon.com/cli/latest/userguide/install-linux.html
+
+how to configure aws cli:
+https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html
+
+how to create and configure security groups:
+https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html
+
+how to create ami and configure
+https://docs.aws.amazon.com/cli/latest/reference/ec2/create-image.html
+
+sleep 1m 30s --- the bash program will stop for 1 min and work again
+
+
+
+																### aws configuration ####
+aws configure --- to configure the account of the aws 
+
+User:shrikkanth
+
+aws configure get region --- to get the region which we are currently configured
+aws configure get aws_access_key_id --- to get the current key
+aws configure set aws_access_key_id default_access_key
+aws configure set region $a
+
+--output text or json --- if you want to chose the way you want the output
+
+
+
+
+                                                                ### instance ###
+
+aws ec2 describe-instances --- to see all the instance details
+aws ec2 run-instances --image-id ami-074acc26872f26463 --count 1 --instance-type t2.nano --key-name access-data-aces --security-group-ids sg-01bc56ba9bb1b747a --subnet-id subnet-0542a543654782ddd --- to create a on-demand instance
+aws ec2 terminate-instances --instance-ids $instance_id --- to delete the instance
+
+aws ec2 allocate-address --domain $vpc_id --- to allocate a elastic ip (non-changing ip for the instance) for an instance and you get the allocation from from this
+aws ec2 associate-address --instance-id  --allocation-id $alloc_id --- we associate the allcation id with to the instance so that the instance can have the same ip
+aws ec2 disassociate-address --association-id $associat_id --- to decouple the assocated ip with the instance
+aws ec2 release-address --allocation-id $alloc_id --- to delete the elastic ip
+
+
+																### security groups ###
+
+aws ec2 create-security-group --group-name testgroupbyshrikkanth --description "My security group done by shrikkanth" ###to create security group
+aws ec2 authorize-security-group-ingress --group-id $output --protocol $a --port $b --cidr 203.0.113.0/24
+aws ec2 authorize-security-group-egress --group-id $output --protocol $a --port $b --cidr 203.0.113.0/24
+
+# authorize-security-group-ingress and authorize-security-group-egress
+# [--group-id <value>]
+# [--group-name <value>]
+# [--ip-permissions <value>]
+# [--dry-run | --no-dry-run]
+# [--protocol <value>]
+# [--port <value>]
+# [--cidr <value>]
+# [--source-group <value>]
+# [--group-owner <value>]
+# [--cli-input-json <value>]
+# [--generate-cli-skeleton <value>]
+
+aws ec2 describe-security-groups --group-id $output --- to describe the security group
+aws ec2 modify-instance-attribute --instance-id $instance_id --groups sg-01bc56ba9bb1b747a --- to change the security group of the instance
+
+
+
+																### AMI ###
+
+aws ec2 create-image --instance-id i-09f4c2f94c1f06d22 --name "test-shrikkanth" --description "test ami from shrikkanth" --- to create an ami from the running instance
+aws ec2 describe-images --- to check the images
+aws ec2 describe-images --filters 'Name=image-id,Values=$ami_id' #'Name=state,Values=available' --- to check images with filters
+aws ec2 copy-image --source-image-id $ami_id --source-region $source_region --region $destination_region --name "$new_ami_name" --- copy the image from one region to another
+aws ec2 deregister-image --image-id $image_id --- to delete the image
+
+
+
+																### spot instance instance ####
+
+aws ec2 describe-spot-price-history --instance-types m1.xlarge --region us-east-1 --start-time 2019-06-05T15:00:00 --end-time 2019-06-05T16:00:00 --- to get the spot instance price
+aws --region=us-east-1 ec2 describe-spot-price-history --instance-types t2.small --start-time $(date +%s) --- to get the spot instance price with the system time
+
+echo '{
+	  "ImageId": "",
+	  "KeyName": "access-data-aces",
+	  "SecurityGroupIds": ["sg-01bc56ba9bb1b747a"],
+	  "InstanceType": "t2.small",
+	  "SubnetId": "subnet-0542a543654782ddd",
+	  "Placement": {
+	    "AvailabilityZone": "us-east-1f"
+	  }
+}' >> awsspotinstancecreation.json --- json file for the creating a spot instance. we need to have a json configuration file for creating spot instance.
+sed -i "s/\"ImageId\":.*,$/\"ImageId\": \"${ami_id}\",/g" awsspotinstancecreation.json --- to edit anything inside the json file
+
+aws ec2 request-spot-instances --spot-price "$price_final" --instance-count 1 --type "one-time" --launch-specification file://awsspotinstancecreation.json --- to create a spot instance 
+aws ec2 describe-spot-instance-requests --filters "Name=spot-instance-request-id,Values=$spotins_id" --- we can find the instance id using the spot instance id that we get from creating the instance 
+aws ec2 cancel-spot-instance-requests --spot-instance-request-ids $spot_req_id --- to delete spot instance
+
+
+
+																### Other commands ###
+
+aws ec2 describe-volumes --- to see the vlume details
+aws s3 ls --- to check the s3 volumes

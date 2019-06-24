@@ -1,0 +1,32 @@
+FROM centos:7
+
+MAINTAINER shrikkanth
+
+RUN sudo su # to run as admin
+
+#RUN yum install https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-6-x86_64/pgdg-redhat10-10-1.noarch.rpm
+
+#RUN yum install postgresql10-server postgresql10
+
+#RUN /usr/pgsql-10/bin/postgresql-10-setup initdb
+
+RUN docker pull postgres  
+
+RUN docker run --name postgresdatabase -e POSTGRES_PASSWORD=admin -d -p 5432:5432 postgres:9.5 # to download and run the postgres container # you can download 9.6 or anyother version too # you can specify the ip 127.0.0.1:5432:5432
+
+RUN docker ps -a
+
+RUN docker exec -it postgresdatabase bash
+
+FROM ubuntu
+
+MAINTAINER shrikkanth
+
+RUN apt-get -y update
+RUN apt-get -y install software-properties-common
+RUN apt-get -y install sudo
+RUN sudo apt-get -y install postgresql postgresql-contrib
+ 
+RUN sudo -i -u postgres
+
+RUN psql

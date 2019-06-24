@@ -1,0 +1,238 @@
+code to write in the sh file:
+
+	Open terminal.
+
+	Navigate to the place where you want to create script using ‘cd‘ command.
+	
+	Cd (enter) [This will bring the prompt at Your home Directory].
+	
+	touch hello.sh (Here we named the script as hello, remember the ‘.sh‘ extension is compulsory).
+	
+	vi hello.sh (nano hello.sh) [You can use your favourite editor, to edit the script].
+	
+	chmod 744 hello.sh (making the script executable).
+	
+	sh hello.sh or ./hello.sh (running the script)
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+$USER --- to print user(it should be in caps)
+read var --- inputing data from user
+ge --- greater
+ls ---lesser	
+-a --- all
+-ne --- for printing one line
+echo -e '\033[41mhelloworld\033[m' --- colored text
+echo $1 > $1 --- pasrsing , when you run the command and type it will be entered , we can use it as an array(./hello.sh name)
+echo $0 --- it will tell you the file name
+
+args=("$@") --- argument is passed and when we call the argument we can
+echo $@ --- a default variable ( it will print all the variable)
+echo $# --- prints the no of arguments 
+
+/c --- used to keep the cursor in the same line
+echo -e --- used to make the work of the backlash like /c to work
+
+if statements:
+
+	syntax:
+		if [ condition ]
+		then
+			statement
+		elif [ condition ]
+		then
+			statement
+		else 
+			statement
+		fi
+
+	if [-e filename] --- e is used as a interprator to search for the file
+	-f --- used to check if its a file 
+	-d --- used to check if its a dir 
+	-b --- used to check if its a block special file (image file video file) 
+	-c --- used to check if its a character special file( normal file) 
+	-s --- used to check if the file is empty or not
+	-r --- used to check if the file has read acess 
+	-w --- used to check if the file has write acess 
+	-x --- used to check if the file has execute acess 
+	-a --- is used instead of && in if statments where we can (and)
+	-o --- is used instead of || in if statments where we can (or)
+
+for aretimetic operations:
+
+	echo $(( num1 + num2 )) --- it adds the num1 and num2
+	echo $( expr $num1 + num2 ) --- it does the same as above but for * use /*
+
+	echo "20.5+23" | bc --- left side will be giving output to the right side (bc is basic calc) 	
+		for divisio we use echo "scale=2;20.5/23" | bc --- scale is 2 means 2 decimal places
+
+	echo "scale=2;sqrt($num)" | bc -l ---square root of a number with decimal point is the the use of the scale
+	echo "scale=2;3^3" | bc -l --- power of the number
+
+	man bc --- for other commands
+
+case statements:
+
+	syntax:
+		case expression in
+			pattern1 )
+				statement ;;
+			pattern2 )
+				statement ;;
+			...
+		esac
+
+	* ) --- option is the default condition (other than the cases given)
+
+	eg for pattern:
+	[A-Z] --- upppercase 
+	[a-z] --- lowercase
+	[0-9] --- numbers
+	? ) --- for single default character
+
+
+while loop:
+	syntax:
+		while [ condition ]
+		do
+			command1
+			command2
+			command3
+		done
+
+until loop:
+	syntax:
+		until [ condition ]
+		do
+			command1
+			command2
+			command3
+			commandN
+		done
+
+
+select loop: (menus)
+	syntax:
+		select name in name1 name2 name3 nameN
+		do
+			case $name in
+			name1 )
+				echo name1 selected
+			;;
+			nameN )
+				echo nameN selected
+			;;
+			esac
+		done
+
+break and continue:
+
+	syntax:
+		for (( i=0; i<=10; i++ ))
+		do
+			if [ $i -gt 5 ]
+			then
+				break 
+			fi
+			echo "$i"
+		done
+
+		for (( i=0; i<=10; i++ ))
+		do
+			if [ $i -eq 3 -o $i -eq 5 ]
+			then
+				continue
+			fi
+			echo "$i"
+		done
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+
+Extra notes:
+
+	Shell: A Command-Line Interpretor that connects a user to Operating System and allows to execute the commands or by creating text script.
+	
+	w --- is used to check who is currently connnected
+	last -a |head -3 --- to check the last time login time\
+	awk '{print "Free/total disk: " $11 " / " $9}' --- used to search line by line
+	xargs is a Unix command which can be used to build and execute commands from standard input.
+	-p --- this helps in getting the echo and read in the same line (read -p 'username:' user_var)
+	-s --- to hide the value like password (read -sp 'pass:' pas_var)
+	-a --- is used to get an array of inputs
+
+	 # ┌───────────── min (0 - 59) 
+	 # │ ┌────────────── hour (0 - 23)
+	 # │ │ ┌─────────────── day of month (1 - 31)
+	 # │ │ │ ┌──────────────── month (1 - 12)
+	 # │ │ │ │ ┌───────────────── day of week (0 - 6)
+	 # │ │ │ │ │
+	 # │ │ │ │ │
+	   * * * * *  systemctl start $SERVICE.service
+	   * * * * *  systemctl stop $SERVICE.service
+
+	String Comparisons:  
+	---------------------------------
+	=  compare if two strings are equal
+	!=  compare if two strings are not equal
+	-n  evaluate if string length is greater than zero
+	-z  evaluate if string length is equal to zero 
+
+	Examples: 
+	[ s1 = s2 ]  (true if s1 same as s2, else false)
+	[ s1 != s2 ]  (true if s1 not same as s2, else false)
+	[ s1 ]   (true if s1 is not empty, else false)
+	[ -n s1 ]   (true if s1 has a length greater then 0, else false)
+	[ -z s2 ]   (true if s2 has a length of 0, otherwise false)
+
+	Number Comparisons: 
+	------------------------------------
+	-eq compare if two numbers are equal
+	-ge compare if one number is greater than or equal to a number
+	-le  compare if one number is less than or equal to a number
+	-ne  compare if two numbers are not equal
+	-gt  compare if one number is greater than another number
+	-lt  compare if one number is less than another number 
+
+	Examples: 
+	[ n1 -eq n2 ]  (true if n1 same as n2, else false)
+	[ n1 -ge n2 ]  (true if n1greater then or equal to n2, else false)
+	[ n1 -le n2 ]  (true if n1 less then or equal to n2, else false)
+	[ n1 -ne n2 ]  (true if n1 is not same as n2, else false)
+	[ n1 -gt n2 ]  (true if n1 greater then n2, else false)
+	[ n1 -lt n2 ]  (true if n1 less then n2, else false)
+
+	the difference between the while loops and the until loops are in while loops when the condition is true, it goes to the next command and in the until loop when the condition is false , it goes to the next command.
+
+	to not promt the password everytime we use sudo:
+		"/etc/sudoers" ------- add user here
+		sudo service sshd restart --- to restart the service if it prompt password again
+
+    -y --- while installing the files use -y to ommit the options it asks yes/no
+
+    ssh -i /home/anitha/access centos@34.217.130.132 --- TO CONNECT TO THE INSTANCE
+
+    scp -i /home/roxor/access /home/roxor/doc.sh centos@34.217.130.132:/home/centos --- to copy file form local to instance
+    -o StrictHostKeyChecking=no --- to by pass the yes command
+
+    hostname -I --- will give the ip address of the host too
+
+    sed -i -e 's/\r$//' scriptname.sh --- use this if the error: bash: ./zookeeper.sh: /bin/bash^M: bad interpreter: No such file or directory
+
+    sed 's+http://+https://www.cyberciti.biz+g' input.txt --- to replace a word from a file
+
+    sed -i "s|# export JAVA_HOME=/usr/java/jdk1.6.0/|export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/\nexport JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/ |g" /hduser/hbase-1.3.4/conf/hbase-env.sh ------------- to append files
+
+    sed -i 's/old-text/new-text/g' input.txt --- to replace
+
+    sed  '/\[option\]/a Hello World' input --- to append
+
+    sed '/option/a insert text here' test --- to append example
+
+    sed -i 's/\r//' myfile.txt --- to change the file to windows or mac file to unix
+
+    sed -n 's/unix/linux/p' geekfile.txt --- Printing only the replaced lines
+
+   
+
+    sed -i "s/\"InstanceType\":.*,$/\"InstanceType\": \"${instance_type}\",/g" awsspotinstancecreation.json ### correct way to append from user input

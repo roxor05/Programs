@@ -1,0 +1,19 @@
+
+
+cd ~/.ssh
+~/.ssh$ ls id_*
+
+
+### to copy the key from our computer
+
+sudo apt-get install xclip
+xclip -sel clip < ~/.ssh/id_rsa.pub # this copies the key and we can paste it in the git hub
+git remote set-url origin git@github.com:username/repo.git
+
+
+### to access the instance 
+
+ssh -i /home/roxor/Downloads/access root@95.216.147.252
+
+### to copy sh files from the vm to instance
+
