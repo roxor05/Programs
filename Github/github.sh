@@ -45,5 +45,3 @@ git push -u origin master # this pushes the files
 
 # git push -u repostoryname branchname # to upload the files or folder to the github online #branchname is master for default and we can have any other name if we have more than one branch
 
-#access key: AKIAZXFPH5QQAHXS7DN5
-#secret access key: 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
