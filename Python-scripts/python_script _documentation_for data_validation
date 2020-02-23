@@ -1,0 +1,27 @@
+Please install the following components in the local machine.
+Python 3.8 with pip installed in it. (https://www.python.org/downloads/)
+pycharm latest version. (https://www.jetbrains.com/pycharm/download/)
+
+Go to windows search bar and search for cmd.
+then go and install the required imports from pip using the following command in cmd.
+pip3 install boto3 subprocess.run paramiko 
+pip3 install asn1crypto==1.3.0
+pip3 install --upgrade snowflake-connector-python
+		or
+pip install boto3 subprocess.run paramiko
+pip install asn1crypto==1.3.0
+pip install --upgrade snowflake-connector-python
+
+Open the python file python_script_for_data_validation.py with pycharm.
+Then go to pycharm and go to File->settings->Project->Project Interpreter and choose the one which has Python 3.8 and click Apply and Ok.
+
+Before running the python script search for the key location and change the key location as per the location of the avanir pem key for current date data.
+Then run the program by right click and run the file.
+
+If you need to change the date manually uncomment the manual date section in both the python_script_for_data_validation.py and python_script_for_data_validation_remote_file.py script and enter the date needed. 
+
+
+In client node install (prod-cluster-4)
+sudo apt install python3-pip
+pip3 install paramiko
+pip3 install cassandra-driver
